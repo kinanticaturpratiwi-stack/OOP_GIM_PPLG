@@ -82,55 +82,91 @@ namespace KerangkaGame
             Console.WriteLine($"Disembuhkan {kesehatan}");
         }
 
-
-        //public void Aksi(int posisiAwal)
-        //{
-        //    Console.Write("Masukkan posisi sekarang: ");
-        //    int posisiSekarang = int.Parse(Console.ReadLine());
-
-        //    Console.WriteLine($"Karakter : {nama}");
-        //    Console.WriteLine($"Posisi Awal : {posisiAwal}");
-        //    Console.WriteLine($"Posisi Sekarang : {posisiSekarang}");
-        //}
-
         public void Aksi(int posisiAwal)
         {
+            Console.WriteLine("=== PILIH CARA BERMAIN ===");
+            Console.WriteLine("1. Tombol Panah Keyboard");
+            Console.WriteLine("2. Input Angka Posisi");
+            Console.Write("Pilih mode (1/2): ");
+
+            string pilihan = Console.ReadLine();
+
             int posisi = posisiAwal;
 
-            Console.WriteLine($"Posisi: {posisi}");
-
-            while (true)
+            if (pilihan == "1")
             {
-                ConsoleKeyInfo tombol = Console.ReadKey(true);
+                Console.WriteLine("== Mode Tombol Panah ==");
+                Console.WriteLine("Panah Kanan = maju 2");
+                Console.WriteLine("Panah Kiri = mundur 1");
+                Console.WriteLine("ESC = keluar");
+                Console.WriteLine($"Posisi Saat Ini : {posisi}");
 
-                if (tombol.Key == ConsoleKey.RightArrow)
+                while (true)
                 {
-                    posisi += 2;
-                }
-                else if (tombol.Key == ConsoleKey.LeftArrow)
-                {
-                    if (posisi > 0)
+                    ConsoleKeyInfo tombol = Console.ReadKey(true);
+
+                    if (tombol.Key == ConsoleKey.RightArrow)
                     {
-                        posisi -= 1;
+                        posisi += 2;
+                    }
+                    else if (tombol.Key == ConsoleKey.LeftArrow)
+                    {
+                        if (posisi > 0)
+                            posisi -= 1;
+                        else
+                            continue;
+                    }
+                    else if (tombol.Key == ConsoleKey.Escape)
+                    {
+                        Console.WriteLine("Permainan Berakhir");
+                        break;
                     }
                     else
                     {
                         continue;
                     }
-                }
-                else if (tombol.Key == ConsoleKey.Escape)
-                {
-                    Console.WriteLine("Permainan Berakhir");
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
 
-                Console.WriteLine($"Posisi: {posisi}");
+                    Console.WriteLine($"Posisi Saat Ini: {posisi}");
+                }
+            }
+
+            else if (pilihan == "2")
+            {
+                Console.WriteLine("Mode Input Angka");
+                Console.WriteLine($"Posisi Awal: {posisi}");
+
+                while (true)
+                {
+                    Console.Write("Masukkan posisi barumu (ketik -1 untuk mengakhiri): ");
+
+                    if (!int.TryParse(Console.ReadLine(), out int posisiBaru))
+                    {
+                        Console.WriteLine("Masukkan angka yang benar!");
+                        continue;
+                    }
+
+                    if (posisiBaru == -1)
+                    {
+                        Console.WriteLine("Permainan Berakhir");
+                        break;
+                    }
+
+                    if (posisiBaru < 0)
+                    {
+                        Console.WriteLine("Posisi tidak boleh kurang dari 0!");
+                        continue;
+                    }
+
+                    posisi = posisiBaru;
+                    Console.WriteLine($"Posisi Saat Ini : {posisi}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Pilihan tidak valid!");
             }
         }
+
 
 
     }
